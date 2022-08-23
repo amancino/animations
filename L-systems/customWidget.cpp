@@ -16,7 +16,7 @@ using namespace std;
 customWidget::customWidget(QWidget* parent) :
   QWidget(parent),
   m_code(""),
-  m_generation(1)
+  m_generation(0)
 {
   btn = new QPushButton("new generation",this);
   connect(btn,&QPushButton::clicked,this,[this](){
@@ -41,18 +41,22 @@ void customWidget::processNewGeneration()
       newCode.append("FF+[+F-F-F]-[-F+F+F]");
       //newCode.append("F[+F]F[−F]F");
       break;
+    case '+':
+      newCode.append("+");
+      break;
+    case '-':
+      newCode.append("-");
+      break;
+    case '[':
+      newCode.append("[");
+      break;
+    case ']':
+      newCode.append("]");
+      break;
     }
   }
 
   m_code = newCode;
-}
-
-void drawGenerations(int gen)
-{
-  for (int g=0; g<gen; ++g)
-  {
-
-  }
 }
 
 void customWidget::paintEvent(QPaintEvent*)
@@ -68,8 +72,9 @@ void customWidget::paintEvent(QPaintEvent*)
   painter.setPen(QPen(Qt::GlobalColor::black,2));
   //painter.drawRoundRect(-rad,-10,2*rad,20,10,20);
 
-  int alpha = 20;
-  int L = 20 * std::pow(0.7,(m_generation-1));
+  int alpha = 25;
+  int L = 10;
+  //int L = 40 * std::pow(0.5,(m_generation-1));
 
   for (char c : m_code)
   {
@@ -77,9 +82,6 @@ void customWidget::paintEvent(QPaintEvent*)
     {
     case 'F':
       painter.drawLine(0,0,0,L);
-      painter.translate(0, L);
-      break;
-    case 'G':
       painter.translate(0, L);
       break;
     case '+':
