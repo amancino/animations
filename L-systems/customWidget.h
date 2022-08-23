@@ -10,9 +10,12 @@ class customWidget : public QWidget
 public:
   customWidget(QWidget* parent);
 
+  void processNewGeneration();
+
 protected:
     void paintEvent(QPaintEvent *event) override;
 
     QPushButton* btn;
-    int rad = 100;
+    std::string m_code;
+    int m_generation;
 };

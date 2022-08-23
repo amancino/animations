@@ -12,9 +12,7 @@ int main(int argc, char* argv[])
   QApplication app(argc,argv);
   QMainWindow mw;
 
-
   customWidget widget(&mw);
-
   widget.setFixedWidth(400);
   widget.setFixedHeight(400);
 

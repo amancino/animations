@@ -11,19 +11,44 @@
 
 using namespace std;
 
-customWidget::customWidget(QWidget* parent) : QWidget(parent)
+customWidget::customWidget(QWidget* parent) :
+  QWidget(parent),
+  m_code(""),
+  m_generation(1)
 {
   btn = new QPushButton("new generation",this);
   connect(btn,&QPushButton::clicked,this,[this](){
-    rad += 2;
+    ++m_generation;
+    processNewGeneration();
+    std::cout << m_code << std::endl;
     this->update();
   });
+
+  m_code = "ABA";
+}
+
+void customWidget::processNewGeneration()
+{
+  std::string newCode;
+
+  for (char c : m_code)
+  {
+    if (c == 'A')
+    {
+      newCode.append("ABA");
+    }
+    else if (c == 'B')
+    {
+      newCode.append("BBB");
+    }
+  }
+
+  m_code = newCode;
 }
 
 void customWidget::paintEvent(QPaintEvent*)
 {
   setMaximumSize(static_cast<QWidget*>(parent())->size());
-  cout << "size: " << width() << ", " << height() << endl;
   QPainter painter(this);
 
   // move to the bottom and change coordinates to point upwards
