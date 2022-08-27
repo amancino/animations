@@ -22,7 +22,7 @@ customWidget::customWidget(QWidget* parent) :
   connect(btn,&QPushButton::clicked,this,[this](){
     ++m_generation;
     processNewGeneration();
-    std::cout << m_code << std::endl;
+    //std::cout << m_code << std::endl;
     this->update();
   });
 
@@ -38,8 +38,9 @@ void customWidget::processNewGeneration()
     switch (c)
     {
     case 'F':
-      newCode.append("FF+[+F-F-F]-[-F+F+F]");
+      //newCode.append("FF+[+F-F-F]-[-F+F+F]");
       //newCode.append("F[+F]F[−F]F");
+      newCode.append("FF+F+FF-F[+F-F-F-F]-[F+F++FF-F--F]");
       break;
     case '+':
       newCode.append("+");
